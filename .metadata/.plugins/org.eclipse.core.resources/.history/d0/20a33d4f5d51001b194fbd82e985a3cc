@@ -1,0 +1,5 @@
+package com.hanul.reservJAVA_app.dto;
+
+public class ReserDTO {
+
+}
