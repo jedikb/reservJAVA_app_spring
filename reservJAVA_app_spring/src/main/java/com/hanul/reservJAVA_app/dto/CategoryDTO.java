@@ -4,6 +4,7 @@ public class CategoryDTO {
 	private int category_code, category_parent_code;
 	private String category_name, category_info;
 	
+	public CategoryDTO() {}
 	
 	public CategoryDTO(int category_code, int category_parent_code, String category_name, String category_info) {
 		super();

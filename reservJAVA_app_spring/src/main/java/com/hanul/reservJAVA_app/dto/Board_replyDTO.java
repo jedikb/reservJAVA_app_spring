@@ -8,6 +8,8 @@ public class Board_replyDTO {
 	private Date board_write_date, board_update_date;
 	private int board_readcount;
 	
+	public Board_replyDTO() {}
+	
 	public Board_replyDTO(int board_code, int board_status, int board_group_code, int board_member_code,
 			String board_title, String board_content, Date board_write_date, Date board_update_date,
 			int board_readcount) {

@@ -6,6 +6,8 @@ public class ProductDTO {
 	private int product_price, product_price_deposit, product_stock;
 	private  String product_image, product_info;
 	
+	public ProductDTO() {}
+	
 	public ProductDTO(int product_code, int product_business_code, String product_name, int product_price,
 			int product_price_deposit, int product_stock, String product_image, String product_info) {
 		super();

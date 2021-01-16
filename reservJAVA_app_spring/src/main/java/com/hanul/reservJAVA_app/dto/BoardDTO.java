@@ -4,18 +4,20 @@ import java.sql.Date;
 
 public class BoardDTO {
 	private int board_code, board_status, board_group_code, board_member_code;
-	private String board_title, board_content;
+	private String board_subject, board_content;
 	private Date board_write_date, board_update_date;
 	private int board_readcount;
 	
-	public BoardDTO(int board_code, int board_status, int board_group_code, int board_member_code, String board_title,
+	public BoardDTO() {}
+	
+	public BoardDTO(int board_code, int board_status, int board_group_code, int board_member_code, String board_subject,
 			String board_content, Date board_write_date, Date board_update_date, int board_readcount) {
 		super();
 		this.board_code = board_code;
 		this.board_status = board_status;
 		this.board_group_code = board_group_code;
 		this.board_member_code = board_member_code;
-		this.board_title = board_title;
+		this.board_subject = board_subject;
 		this.board_content = board_content;
 		this.board_write_date = board_write_date;
 		this.board_update_date = board_update_date;
@@ -55,11 +57,11 @@ public class BoardDTO {
 	}
 
 	public String getBoard_title() {
-		return board_title;
+		return board_subject;
 	}
 
 	public void setBoard_title(String board_title) {
-		this.board_title = board_title;
+		this.board_subject = board_title;
 	}
 
 	public String getBoard_content() {

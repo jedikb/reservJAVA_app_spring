@@ -10,6 +10,7 @@ public class BookingDTO {
 	private int booking_appraisal_star;
 	private String booking_appraisal;
 	
+	public BookingDTO() {}
 	
 	public BookingDTO(int booking_code, int booking_kind, int booking_member_code, int booking_business_code,
 			int booking_product_code, int booking_price, int booking_price_deposit, int booking_num, Date booking_date,
