@@ -9,11 +9,11 @@ public class ALoginCommand implements ACommand{
 
 	@Override
 	public void execute(Model model) {		
-		String member_id = (String)model.asMap().get("member_id");
-		String member_pw = (String)model.asMap().get("member_pw");	
-		
+		String member_id_in = (String)model.asMap().get("member_id");
+		String member_pw_in = (String)model.asMap().get("member_pw");	
+		System.out.println("ALoginCommand: " + member_id_in);
 		ANDAO adao = new ANDAO();
-		MemberDTO adto = adao.anLogin(member_id, member_pw);
+		MemberDTO adto = adao.anLogin(member_id_in, member_pw_in);
 		
 		model.addAttribute("anLogin", adto); 
 		

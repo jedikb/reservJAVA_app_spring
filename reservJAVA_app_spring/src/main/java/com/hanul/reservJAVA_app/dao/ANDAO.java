@@ -27,7 +27,7 @@ public class ANDAO {
 	}
 
 	//로그인
-	public MemberDTO anLogin(String member_id, String member_pw) {
+	public MemberDTO anLogin(String member_id_in, String member_pw_in) {
 		MemberDTO adto = null;
 		Connection connection = null;
 		PreparedStatement prepareStatement = null;
@@ -35,23 +35,25 @@ public class ANDAO {
 		
 		try {
 			connection = dataSource.getConnection();
+			
 			String query = "select * "					
-							+ " from member" 
-							+ " where id = '" + member_id + "' and passwd = '" + member_pw + "' ";
+							+ " from tbl_member" 
+							+ " where member_id = '" + member_id_in + "' and member_pw = '" + member_pw_in + "' ";
 			prepareStatement = connection.prepareStatement(query);
 			resultSet = prepareStatement.executeQuery();
-			
+			System.out.println(member_id_in +", "+ member_pw_in);
 			while (resultSet.next()) {
-				String member_code = resultSet.getString("member_code");
-				String member_id2 = resultSet.getString("member_id");
+				int member_code = Integer.parseInt(resultSet.getString("member_code"));
+				String member_id = resultSet.getString("member_id");
 				String member_name = resultSet.getString("member_name");
 				String member_nick = resultSet.getString("member_nick");
 				String member_tel = resultSet.getString("member_tel"); 
 
-				adto = new MemberDTO(member_code, member_id2, member_name, member_nick, member_tel);							
+				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel);							
 			}	
 			
 			System.out.println("MemberDTO id : " + adto.getMember_id());
+			System.out.println("MemberDTO name : " + adto.getMember_name());
 			
 		} catch (Exception e) {
 			

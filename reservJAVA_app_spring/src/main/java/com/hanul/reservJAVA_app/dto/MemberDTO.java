@@ -24,8 +24,8 @@ public class MemberDTO {
 	}
 
 	//로그인 시 가져갈 정보
-	public MemberDTO(String member_code2, String member_id2, String member_name2, String member_nick2,
-			String member_tel2) {
+	public MemberDTO(int member_code, String member_id, String member_name, String member_nick,
+			String member_tel) {
 	}
 
 	public int getMember_code() {

@@ -1,10 +1,71 @@
 package com.hanul.reservJAVA_app.controller;
 
-import com.hanul.reservJAVA_app.command.ACommand;
+import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.hanul.reservJAVA_app.command.ACommand;
+import com.hanul.reservJAVA_app.command.ALoginCommand;
+import com.hanul.reservJAVA_app.command.AUpdateCommand;
+
+
+@Controller
 public class AController {
 
 	ACommand command;
+	
+	//로그인
+	@RequestMapping(value="/anLogin", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anLogin(HttpServletRequest req, Model model){
+		System.out.println("anLogin()");
+		
+		try {
+			req.setCharacterEncoding("UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 		
+		
+		String member_id = (String) req.getParameter("member_id");
+		String member_pw = (String) req.getParameter("member_pw");
+		
+		System.out.println(member_id);
+		System.out.println(member_pw);
+		
+		model.addAttribute("member_id", member_id);
+		model.addAttribute("member_pw", member_pw);
+		
+		command = new ALoginCommand();
+		command.execute(model);
+		
+		return "anLogin";
+	}
+	
+	
+	//회원 정보 업데이트(미완)
+	@RequestMapping(value="/memberUpdate", method = {RequestMethod.GET, RequestMethod.POST})
+	public String memberDetail(HttpServletRequest req, Model model) {
+		System.out.println("memberDetail()");
+		
+		String member_name = req.getParameter("member_name");
+		String member_nick = req.getParameter("member_nick");
+		String member_tel = req.getParameter("member_tel");
+		
+		System.out.println(member_name);
+		System.out.println(member_nick);
+		System.out.println(member_tel);
+		
+		model.addAttribute("member_name", member_name);
+		model.addAttribute("member_nick", member_nick);
+		model.addAttribute("member_tel", member_tel);
+		
+		command = new AUpdateCommand();
+		command.execute(model);
+		
+		return "memberUpdate";
+	}
 	
 	
 }
