@@ -41,22 +41,20 @@ public class ANDAO {
 							+ " where member_id = '" + member_id_in + "' and member_pw = '" + member_pw_in + "' ";
 			prepareStatement = connection.prepareStatement(query);
 			resultSet = prepareStatement.executeQuery();
-			System.out.println(member_id_in +", "+ member_pw_in);
+			//System.out.println(member_id_in +", "+ member_pw_in);
 			while (resultSet.next()) {
-				int member_code = Integer.parseInt(resultSet.getString("member_code"));
+				int member_code = resultSet.getInt("member_code");
 				String member_id = resultSet.getString("member_id");
 				String member_name = resultSet.getString("member_name");
 				String member_nick = resultSet.getString("member_nick");
 				String member_tel = resultSet.getString("member_tel"); 
-
-				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel);							
+				String member_email = resultSet.getString("member_email"); 
+				
+				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel, member_email);							
 			}	
-			
-			System.out.println("MemberDTO id : " + adto.getMember_id());
-			System.out.println("MemberDTO name : " + adto.getMember_name());
-			
+			//System.out.println("MemberDTO id : " + adto.getMember_id());
+			//System.out.println("MemberDTO name : " + adto.getMember_name());
 		} catch (Exception e) {
-			
 			System.out.println(e.getMessage());
 		} finally {
 			try {			
@@ -79,24 +77,34 @@ public class ANDAO {
 		}
 		return adto;
 	}
-
-	
-	
-	
 	
 	//내 정보 수정(우선은 조회만)
-	public MemberDTO memberUpdate(String member_name, String member_nick, String member_tel) {
-		MemberDTO dto = new MemberDTO();
+	public int memberUpdate(String member_id, String member_pw, String member_name, String member_nick, String member_tel, String member_email) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		
+		int state = -1;
+		
 		try {
-			// 임시 아이디
-			String member_id = "id101";
+			//아이디는 수정 하면 안됨
 			connection = dataSource.getConnection();
-			String query = "select member_name, member_nick, member_tel "
-					+ " from tbl_member where id =" + member_id;
+			String query = "update tbl_member set "
+					+ ", member_pw= '" + member_pw + "'"
+					+ ", member_name= '" + member_name + "'"
+					+ ", member_nick= '" + member_nick + "'"
+					+ ", member_tel= '" + member_tel + "'"
+					+ ", member_email= '" + member_email + "'"
+					+ " where id =" + member_id;
+			
+			preparedStatement = connection.prepareStatement(query);
+			state = preparedStatement.executeUpdate();
+			
+			if(state > 0) {
+				System.out.println("수정1 성공");
+			} else {
+				System.out.println("수정1 실패");
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -114,7 +122,7 @@ public class ANDAO {
 				e.printStackTrace();
 			}
 		}
-		return dto;
+		return state;
 	}
 
 	 

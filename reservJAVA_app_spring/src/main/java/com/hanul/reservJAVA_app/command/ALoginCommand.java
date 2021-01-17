@@ -11,7 +11,7 @@ public class ALoginCommand implements ACommand{
 	public void execute(Model model) {		
 		String member_id_in = (String)model.asMap().get("member_id");
 		String member_pw_in = (String)model.asMap().get("member_pw");	
-		System.out.println("ALoginCommand: " + member_id_in);
+		
 		ANDAO adao = new ANDAO();
 		MemberDTO adto = adao.anLogin(member_id_in, member_pw_in);
 		
