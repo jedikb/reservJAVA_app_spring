@@ -1,16 +1,19 @@
 package com.hanul.reservJAVA_app.dto;
 
+import java.sql.Date;
+
 public class MemberDTO {
 	private int member_code;
 	private String member_id, member_pw;
 	private int member_kind;
-	private String member_name, member_nick, member_tel, member_email, member_addr;
+	private String member_name, member_nick, member_tel, member_email, member_addr, member_image;
+	private Date member_date;
 	// 사진 추가 해야 함
 	public MemberDTO() {}
 	
 	//전체 정보
 	public MemberDTO(int member_code, String member_id, String member_pw, int member_kind, String member_name,
-			String member_nick, String member_tel, String member_email, String member_addr) {
+			String member_nick, String member_tel, String member_email, String member_addr, String member_image, Date member_date) {
 		super();
 		this.member_code = member_code;
 		this.member_id = member_id;
@@ -21,11 +24,13 @@ public class MemberDTO {
 		this.member_tel = member_tel;
 		this.member_email = member_email;
 		this.member_addr = member_addr;
+		this.member_image = member_image;
+		this.member_date = member_date;
 	}
 
-	//멤버 정보 업데이트
+	//멤버 정보 업데이트(date: 회원님은 우리와 얼마동안 함께 했습니다)
 	public MemberDTO(String member_id, String member_pw, String member_name,
-			String member_nick, String member_tel, String member_email) {
+			String member_nick, String member_tel, String member_email, String member_image, Date member_date) {
 		super();
 		this.member_id = member_id;
 		this.member_pw = member_pw;
@@ -33,11 +38,13 @@ public class MemberDTO {
 		this.member_nick = member_nick;
 		this.member_tel = member_tel;
 		this.member_email = member_email;
+		this.member_image = member_image;
+		this.member_date = member_date;
 	}
 
 	//로그인 시 가져갈 정보(사진 추가 해야 함)
 	public MemberDTO(int member_code, String member_id, String member_name, String member_nick,
-			String member_tel, String member_email) {
+			String member_tel, String member_email, String member_image, Date member_date) {
 		super();
 		this.member_code = member_code;
 		this.member_id = member_id;
@@ -45,6 +52,8 @@ public class MemberDTO {
 		this.member_nick = member_nick;
 		this.member_tel = member_tel;
 		this.member_email = member_email;
+		this.member_image = member_image;
+		this.member_date = member_date;
 	}
 
 	public int getMember_code() {
@@ -101,4 +110,21 @@ public class MemberDTO {
 	public void setMember_addr(String member_addr) {
 		this.member_addr = member_addr;
 	}
+
+	public String getMember_image() {
+		return member_image;
+	}
+
+	public void setMember_image(String member_image) {
+		this.member_image = member_image;
+	}
+
+	public Date getMember_date() {
+		return member_date;
+	}
+
+	public void setMember_date(Date member_date) {
+		this.member_date = member_date;
+	}
+	
 }
