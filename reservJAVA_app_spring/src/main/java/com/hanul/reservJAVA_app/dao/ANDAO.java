@@ -44,14 +44,16 @@ public class ANDAO {
 			while (resultSet.next()) {
 				int member_code = resultSet.getInt("member_code");
 				String member_id = resultSet.getString("member_id");
+				int member_kind = resultSet.getInt("member_kind");
 				String member_name = resultSet.getString("member_name");
 				String member_nick = resultSet.getString("member_nick");
 				String member_tel = resultSet.getString("member_tel"); 
 				String member_email = resultSet.getString("member_email"); 
+				String member_addr = resultSet.getString("member_addr"); 
 				String member_image = resultSet.getString("member_image"); 
 				Date member_date = resultSet.getDate("member_date"); 
-				
-				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel, member_email, member_image, member_date);							
+				System.out.println(member_date);
+				adto = new MemberDTO(member_code, member_id, member_kind, member_name, member_nick, member_tel, member_email, member_addr, member_image, member_date);							
 			}	
 			//System.out.println("MemberDTO id : " + adto.getMember_id());
 			//System.out.println("MemberDTO name : " + adto.getMember_name());
