@@ -1,9 +1,9 @@
 package com.hanul.reservJAVA_app.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -11,7 +11,6 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.hanul.reservJAVA_app.dto.MemberDTO;
-import com.hanul.reservJAVA_app.dto.ReservDTO;
 
 public class ANDAO {
 
@@ -49,8 +48,10 @@ public class ANDAO {
 				String member_nick = resultSet.getString("member_nick");
 				String member_tel = resultSet.getString("member_tel"); 
 				String member_email = resultSet.getString("member_email"); 
+				String member_image = resultSet.getString("member_image"); 
+				Date member_date = resultSet.getDate("member_date"); 
 				
-				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel, member_email);							
+				adto = new MemberDTO(member_code, member_id, member_name, member_nick, member_tel, member_email, member_image, member_date);							
 			}	
 			//System.out.println("MemberDTO id : " + adto.getMember_id());
 			//System.out.println("MemberDTO name : " + adto.getMember_name());
