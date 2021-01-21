@@ -7,13 +7,13 @@ public class MemberDTO {
 	private String member_id, member_pw;
 	private int member_kind;
 	private String member_name, member_nick, member_tel, member_email, member_addr, member_image;
-	private Date member_date;
+	private String member_date;
 	// 사진 추가 해야 함
 	public MemberDTO() {}
 	
 	//전체 정보
 	public MemberDTO(int member_code, String member_id, String member_pw, int member_kind, String member_name,
-			String member_nick, String member_tel, String member_email, String member_addr, String member_image, Date member_date) {
+			String member_nick, String member_tel, String member_email, String member_addr, String member_image, String member_date) {
 		super();
 		this.member_code = member_code;
 		this.member_id = member_id;
@@ -30,7 +30,7 @@ public class MemberDTO {
 
 	//로그인 시 가져갈 정보(자꾸 변경하게 되어 그냥 pw빼고 다 넣음)
 	public MemberDTO(int member_code, String member_id, int member_kind, String member_name, String member_nick,
-			String member_tel, String member_email, String member_addr, String member_image, Date member_date) {
+			String member_tel, String member_email, String member_addr, String member_image, String member_date) {
 		super();
 		this.member_code = member_code;
 		this.member_id = member_id;
@@ -107,11 +107,11 @@ public class MemberDTO {
 		this.member_image = member_image;
 	}
 
-	public Date getMember_date() {
+	public String getMember_date() {
 		return member_date;
 	}
 
-	public void setMember_date(Date member_date) {
+	public void setMember_date(String member_date) {
 		this.member_date = member_date;
 	}
 	

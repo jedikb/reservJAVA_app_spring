@@ -35,9 +35,9 @@ public class ANDAO {
 		try {
 			connection = dataSource.getConnection();
 			
-			String query = "select * "					
-							+ " from tbl_member" 
-							+ " where member_id = '" + member_id_in + "' and member_pw = '" + member_pw_in + "' ";
+			String query = "select b.* ,  to_char(b.member_date , 'yyyy-MM-dd ')  "					
+							+ " from tbl_member b" 
+							+ " where b.member_id = '" + member_id_in + "' and b.member_pw = '" + member_pw_in + "' ";
 			prepareStatement = connection.prepareStatement(query);
 			resultSet = prepareStatement.executeQuery();
 			//System.out.println(member_id_in +", "+ member_pw_in);
@@ -51,7 +51,7 @@ public class ANDAO {
 				String member_email = resultSet.getString("member_email"); 
 				String member_addr = resultSet.getString("member_addr"); 
 				String member_image = resultSet.getString("member_image"); 
-				Date member_date = resultSet.getDate("member_date"); 
+				String member_date = resultSet.getString("member_date"); 
 				System.out.println(member_date);
 				adto = new MemberDTO(member_code, member_id, member_kind, member_name, member_nick, member_tel, member_email, member_addr, member_image, member_date);							
 			}	
