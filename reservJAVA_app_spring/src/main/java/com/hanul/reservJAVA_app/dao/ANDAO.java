@@ -81,24 +81,26 @@ public class ANDAO {
 		return adto;
 	}
 	
-	//내 정보 수정(우선은 조회만)
-	public int memberUpdate(String member_id, String member_pw, String member_name, String member_nick, String member_tel, String member_email) {
+	//내 정보 수정
+	public int memberUpdate(String member_id, String member_pw, String member_nick, String member_tel, String member_email, String member_image) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		
+		System.out.println(member_pw);
 		int state = -1;
 		
 		try {
 			//아이디는 수정 하면 안됨
 			connection = dataSource.getConnection();
+			
+			
 			String query = "update tbl_member set "
-					+ ", member_pw= '" + member_pw + "'"
-					+ ", member_name= '" + member_name + "'"
+					+ " member_pw= '" + member_pw + "'"
 					+ ", member_nick= '" + member_nick + "'"
 					+ ", member_tel= '" + member_tel + "'"
 					+ ", member_email= '" + member_email + "'"
-					+ " where id =" + member_id;
+					+ ", member_image= '" + member_image + "'"
+					+ " where member_id ='" + member_id + "'";
 			
 			preparedStatement = connection.prepareStatement(query);
 			state = preparedStatement.executeUpdate();
