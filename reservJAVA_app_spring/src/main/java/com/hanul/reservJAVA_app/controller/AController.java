@@ -11,9 +11,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
+import com.hanul.reservJAVA_app.command.ABusinessSelectCommand;
 import com.hanul.reservJAVA_app.command.ACommand;
-import com.hanul.reservJAVA_app.command.ALoginCommand;
-import com.hanul.reservJAVA_app.command.AUpdateCommand;
+import com.hanul.reservJAVA_app.command.AMemberDeleteCommand;
+import com.hanul.reservJAVA_app.command.AMemberInsertCommand;
+import com.hanul.reservJAVA_app.command.AMemberJoinCommand;
+import com.hanul.reservJAVA_app.command.AMemberLoginCommand;
+import com.hanul.reservJAVA_app.command.AMemberUpdateCommand;
+import com.hanul.reservJAVA_app.command.AMemberUpdateNoimgCommand;
+import com.hanul.reservJAVA_app.command.AProductSelectCommand;
 
 
 @Controller
@@ -21,15 +27,19 @@ public class AController {
 
 	ACommand command;
 	
+	//이미지 업로드 디렉토리 생성
+	public void makeDir(HttpServletRequest req){
+		File f = new File(req.getSession().getServletContext()
+				.getRealPath("/resources"));
+		if(!f.isDirectory()){
+			f.mkdir();
+		}	
+	}
+	
 	//로그인
-	@RequestMapping(value="/anLogin", method = {RequestMethod.GET, RequestMethod.POST}  )
-	public String anLogin(HttpServletRequest req, Model model){
-		System.out.println("anLogin()");
-		try {
-			req.setCharacterEncoding("UTF-8");
-		} catch (Exception e) {
-			e.printStackTrace();
-		} 		
+	@RequestMapping(value="/anMemberLogin", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anMemberLogin(HttpServletRequest req, Model model){
+		System.out.println("anMemberLogin()");
 		
 		String member_id = (String) req.getParameter("member_id");
 		String member_pw = (String) req.getParameter("member_pw");
@@ -37,17 +47,122 @@ public class AController {
 		model.addAttribute("member_id", member_id);
 		model.addAttribute("member_pw", member_pw);
 		
-		command = new ALoginCommand();
+		command = new AMemberLoginCommand();
 		command.execute(model);
 		
 		return "anLogin";
 	}
 	
+	//회원가입
+	@RequestMapping(value="/anMemberJoin", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anMemberJoin(HttpServletRequest req, Model model){
+		System.out.println("anMemberJoin()");
+
+		String member_id = (String) req.getParameter("member_id");
+		String member_pw = (String) req.getParameter("member_pw");
+		String member_name = (String) req.getParameter("member_name");
+		String member_nick = (String) req.getParameter("member_nick");
+		String member_tel = (String) req.getParameter("member_tel");
+		String member_email = (String) req.getParameter("member_email");
+		String member_image = (String) req.getParameter("member_image");
+		//Date member_date = (String) req.getParameter("member_date");
+		
+		System.out.println(member_id);
+		System.out.println(member_pw);
+		System.out.println(member_name);
+
+		
+		model.addAttribute("member_id", member_id);
+		model.addAttribute("member_pw", member_pw);
+		model.addAttribute("member_name", member_name);
+		model.addAttribute("member_nick", member_nick);
+		model.addAttribute("member_tel", member_tel);
+		model.addAttribute("member_email", member_email);
+		model.addAttribute("member_image", member_image);
+		//model.addAttribute("member_date", member_date);
+		
+		command = new AMemberJoinCommand();
+		command.execute(model);
+		
+		return "anJoin";
+	}
 	
-	//회원 정보 업데이트
-	@RequestMapping(value="/memberUpdate", method = {RequestMethod.GET, RequestMethod.POST})
-	public String memberDetail(HttpServletRequest req, Model model) {
-		System.out.println("memberUpdate()");
+	//멤버 인서트(이건 뭐에 쓰는거?)
+	//잘모르겠지만,, 업데이트에 쓰는 것과 비슷한것 같아 참고해서 넣음
+	@RequestMapping(value="/anMemberInsert", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anMemberInsert(HttpServletRequest req, Model model){
+		System.out.println("anMemberInsert()");	
+		
+		String member_id = req.getParameter("member_id");
+		String member_pw = req.getParameter("member_pw");
+		String member_nick = req.getParameter("member_nick");
+		String member_tel = req.getParameter("member_tel");
+		String member_email = req.getParameter("member_email");
+		String member_image = req.getParameter("member_image");
+		String dbImgPath = (String) req.getParameter("dbImgPath");
+		String pDbImgPath = (String) req.getParameter("pDbImgPath");
+		
+		System.out.println(member_id);
+		System.out.println(member_tel);
+		System.out.println(member_email);
+		System.out.println(member_image);
+		System.out.println(pDbImgPath);
+		System.out.println(dbImgPath);
+		
+		model.addAttribute("member_id", member_id);
+		model.addAttribute("member_pw", member_pw);
+		model.addAttribute("member_nick", member_nick);
+		model.addAttribute("member_tel", member_tel);
+		model.addAttribute("member_email", member_email);
+		model.addAttribute("member_image", member_image);
+		
+		MultipartRequest multi = (MultipartRequest)req;
+		MultipartFile file = multi.getFile("image");
+		
+			
+		if(file != null) {
+			//여기 파일 네임 확인해야 할듯??
+			String fileName = file.getOriginalFilename();
+			System.out.println(fileName);
+			
+			// 디렉토리 존재하지 않으면 생성
+			makeDir(req);	
+				
+			if(file.getSize() > 0){			
+				String realImgPath = req.getSession().getServletContext()
+						.getRealPath("/resources/images/member/");
+				
+				System.out.println( fileName + " : " + realImgPath);
+				System.out.println( "fileSize : " + file.getSize());					
+												
+			 	try {
+			 		// 이미지파일 저장
+					file.transferTo(new File(realImgPath, fileName));										
+				} catch (Exception e) {
+					e.printStackTrace();
+				} 
+									
+			}else{
+				// 이미지파일 실패시
+				fileName = "FileFail.jpg";
+				String realImgPath = req.getSession().getServletContext()
+						.getRealPath("/resources/images/member/" + fileName);
+				System.out.println(fileName + " : " + realImgPath);
+						
+			}			
+			
+		}
+				
+		command = new AMemberInsertCommand();
+		command.execute(model);
+		
+		return "anMemberInsert";
+	}
+	
+	//회원 정보 업데이트(이미지 변경)
+	@RequestMapping(value="/anMemberUpdate", method = {RequestMethod.GET, RequestMethod.POST})
+	public void anMemberUpdate(HttpServletRequest req, Model model) {
+		System.out.println("anMemberUpdate()");
 		
 		String member_id = req.getParameter("member_id");
 		String member_pw = req.getParameter("member_pw");
@@ -121,28 +236,97 @@ public class AController {
 				String realImgPath = req.getSession().getServletContext()
 						.getRealPath("/resources/images/member/" + fileName);
 				System.out.println(fileName + " : " + realImgPath);
-						
 			}			
-			
 		}
+				
+		command = new AMemberUpdateCommand();
+		command.execute(model);
+	}
+	
+	//회원 정보 업데이트(이미지 변경 없음)
+	@RequestMapping(value="/anMemberUpdateNoimg", method = {RequestMethod.GET, RequestMethod.POST})
+	public void anMemberUpdateNoimg(HttpServletRequest req, Model model) {
+		System.out.println("anMmemberUpdateNoimg()");
 		
+		String member_id = req.getParameter("member_id");
+		String member_pw = req.getParameter("member_pw");
+		String member_nick = req.getParameter("member_nick");
+		String member_tel = req.getParameter("member_tel");
+		String member_email = req.getParameter("member_email");
 		
+		model.addAttribute("member_id", member_id);
+		model.addAttribute("member_pw", member_pw);
+		model.addAttribute("member_nick", member_nick);
+		model.addAttribute("member_tel", member_tel);
+		model.addAttribute("member_email", member_email);
+				
+		command = new AMemberUpdateNoimgCommand();
+		command.execute(model);
+	}
+	
+	//회원 탈퇴	
+	@RequestMapping(value="/anMemberDelete", method = {RequestMethod.GET, RequestMethod.POST})
+	public void anMemberDelete(HttpServletRequest req, Model model){
+		System.out.println("anMemberDelete()");		
 		
+		model.addAttribute("member_id", req.getParameter("member_id"));		
+				
+		System.out.println((String)req.getParameter("id"));
+		System.out.println((String)req.getParameter("delDbImgPath"));
 		
-		command = new AUpdateCommand();
+		String pFileName = req.getParameter("delDbImgPath").split("/")[req.getParameter("delDbImgPath").split("/").length -1];
+		String delDbImgPath = req.getSession().getServletContext().getRealPath("/resources/images/member/" + pFileName);		
+		
+		// 이미지 파일지우기
+		File delfile = new File(delDbImgPath);
+		System.out.println(delfile.getAbsolutePath());
+		
+        if(delfile.exists()) {
+            System.out.println("Del:pDelImagePath " + delfile.exists());
+            boolean deleteFile = false;
+            while(deleteFile != true){
+            	deleteFile = delfile.delete();
+            }     
+        }	
+		
+		command = new AMemberDeleteCommand();
+		command.execute(model);	
+	}
+
+	//업체 리스트
+	@RequestMapping(value="/anBusinessSelect", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anBusinessSelect(HttpServletRequest req, Model model){
+		System.out.println("anBusinessSelect()");
+		
+		command = new ABusinessSelectCommand();
 		command.execute(model);
 		
-		return "memberUpdate";
+		return "anBusinessSelect";
 	}
 	
-	//업로드 디렉토리 생성
-	public void makeDir(HttpServletRequest req){
-		File f = new File(req.getSession().getServletContext()
-				.getRealPath("/resources"));
-		if(!f.isDirectory()){
-		f.mkdir();
-		}	
+	//상품 리스트
+	@RequestMapping(value="/anProductSelect", method = {RequestMethod.GET, RequestMethod.POST}  )
+	public String anProductSelect(HttpServletRequest req, Model model){
+		System.out.println("anProductSelect()");
+		
+		command = new AProductSelectCommand();
+		command.execute(model);
+		
+		return "anProductSelect";
 	}
 	
+	// 이 밑은 고민해봐야 할듯...
+	
+	//카테고리 리스트(얘는 여기에 business 연동해야 함)
+	
+	
+	//예약 리스트(일단 예약자료만,, 멤버 연동은 모름;;)
+	
+	
+	//방문 리스트(멤버)
+	
+	//리뷰 리스트(멤버)
+	
+	//리뷰 리스트(업체)
 	
 }
