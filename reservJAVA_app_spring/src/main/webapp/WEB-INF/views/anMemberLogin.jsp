@@ -12,7 +12,7 @@
 
 <%
 Gson gson = new Gson();
-String json = gson.toJson((MemberDTO)request.getAttribute("anLogin"));
+String json = gson.toJson((MemberDTO)request.getAttribute("anMemberLogin"));
 
 out.println(json);	
 

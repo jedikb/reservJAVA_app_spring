@@ -26,7 +26,7 @@ public class MemberDAO {
 	}
 
 	//로그인
-	public MemberDTO anLogin(String member_id_in, String member_pw_in) {
+	public MemberDTO anMemberLogin(String member_id_in, String member_pw_in) {
 		MemberDTO adto = null;
 		Connection connection = null;
 		PreparedStatement prepareStatement = null;

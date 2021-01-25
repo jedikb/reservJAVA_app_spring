@@ -14,9 +14,9 @@ public class AMemberLoginCommand implements ACommand{
 		String member_pw_in = (String)model.asMap().get("member_pw");	
 		
 		MemberDAO adao = new MemberDAO();
-		MemberDTO adto = adao.anLogin(member_id_in, member_pw_in);
+		MemberDTO adto = adao.anMemberLogin(member_id_in, member_pw_in);
 		
-		model.addAttribute("anLogin", adto); 
+		model.addAttribute("anMemberLogin", adto); 
 		
 	}
 	

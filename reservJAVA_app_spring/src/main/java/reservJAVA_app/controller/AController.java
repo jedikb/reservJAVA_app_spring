@@ -52,7 +52,7 @@ public class AController {
 		command = new AMemberLoginCommand();
 		command.execute(model);
 		
-		return "anLogin";
+		return "anMemberLogin";
 	}
 	
 	//회원가입
@@ -86,7 +86,7 @@ public class AController {
 		command = new AMemberJoinCommand();
 		command.execute(model);
 		
-		return "anJoin";
+		return "anMemberJoin";
 	}
 	
 	//멤버 인서트(이건 뭐에 쓰는거?)
