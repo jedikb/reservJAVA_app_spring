@@ -1,4 +1,4 @@
-<%@page import="com.hanul.reservJAVA_app.dto.MemberDTO"%>
+<%@page import="reservJAVA_app.dto.MemberDTO"%>
 <%@page import="org.springframework.ui.Model"%>
 <%@page import="java.sql.*, java.sql.Date, javax.sql.*, javax.naming.*, 
 					java.util.*, java.io.PrintWriter" %>
