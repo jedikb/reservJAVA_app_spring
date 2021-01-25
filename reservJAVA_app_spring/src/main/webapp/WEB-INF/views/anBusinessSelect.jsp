@@ -16,15 +16,15 @@ String json = gson.toJson((BusinessDTO)request.getAttribute("anBusinessSelect"))
 
 out.println(json);	
 
- try{
+ /* try{
 	out.println("<lists>"); 
 
-for(BusinessDTO dto  : (ArrayList<BusinessDTO>)request.getAttribute("anBusinessSelect")){
-	out.println("<list>");
-	out.println("<id>" + dto.getBusiness_code() + "</business_id>");
-	out.println("<name>" + dto.getBusiness_name() + "</business_name>");
+	for(BusinessDTO dto  : (ArrayList<BusinessDTO>)request.getAttribute("anBusinessSelect")){
+		out.println("<list>");
+		out.println("<id>" + dto.getBusiness_code() + "</business_id>");
+		out.println("<name>" + dto.getBusiness_name() + "</business_name>");
 	
-	/* if(dto.getUploadtype().equals("video")){
+	 if(dto.getUploadtype().equals("video")){
 		String fileNamePath = (dto.getImage1().split("/")[dto.getImage1().split("/").length-1]);
 		String replacePath = (dto.getImage1().split("/")[dto.getImage1().split("/").length-1]).replace(".", "_");
 		System.out.println("replacePath :" + replacePath);				
@@ -37,11 +37,11 @@ for(BusinessDTO dto  : (ArrayList<BusinessDTO>)request.getAttribute("anBusinessS
 		out.println("<videoimage>" + "novideo" + "</videoimage>");
 	}
 	 
-	out.println("</list>"); */
-}
+	out.println("</list>"); 
+}1
 	out.println("</lists>");
 }catch(Exception e) {
 	System.out.println("select list failed" + e.getMessage());
-}	  
+}	    */
 
 %>

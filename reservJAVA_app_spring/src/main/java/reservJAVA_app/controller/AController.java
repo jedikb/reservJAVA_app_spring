@@ -150,11 +150,8 @@ public class AController {
 				String realImgPath = req.getSession().getServletContext()
 						.getRealPath("/resources/images/member/" + fileName);
 				System.out.println(fileName + " : " + realImgPath);
-						
 			}			
-			
 		}
-				
 		command = new AMemberInsertCommand();
 		command.execute(model);
 		
