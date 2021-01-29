@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,8 @@ import command.ACommand;
 import command_board.ABoardSelectCommand;
 import command_booking.ABookingSelectCommand;
 import command_business.ABusinessSelectCommand;
+import command_business.ASearchBusinessCommand;
 import command_member.AMemberDeleteCommand;
-import command_member.AMemberInsertCommand;
 import command_member.AMemberJoinCommand;
 import command_member.AMemberLoginCommand;
 import command_member.AMemberUpdateCommand;
@@ -28,6 +29,22 @@ import command_product.AProductSelectCommand;
 public class AController {
 
 	ACommand command;
+	
+	//매장 검색
+	@RequestMapping("/anSearchBusiness")
+	public String SearchBusiness(HttpServletRequest req, Model model) {
+		System.out.println("anSearchBusiness()");
+		
+		String searchText = (String) req.getParameter("searchText");
+		
+		model.addAttribute("searchText", searchText);
+		
+		command = new ASearchBusinessCommand();
+		command.execute(model);
+		
+		return "anSearchBusiness";
+	}
+	
 	
 	//이미지 업로드 디렉토리 생성
 	public void makeDir(HttpServletRequest req){
@@ -87,75 +104,6 @@ public class AController {
 		command.execute(model);
 		
 		return "anMemberJoin";
-	}
-	
-	//멤버 인서트(이건 뭐에 쓰는거?)
-	//잘모르겠지만,, 업데이트에 쓰는 것과 비슷한것 같아 참고해서 넣음
-	@RequestMapping(value="/anMemberInsert", method = {RequestMethod.GET, RequestMethod.POST}  )
-	public String anMemberInsert(HttpServletRequest req, Model model){
-		System.out.println("anMemberInsert()");	
-		
-		String member_id = req.getParameter("member_id");
-		String member_pw = req.getParameter("member_pw");
-		String member_nick = req.getParameter("member_nick");
-		String member_tel = req.getParameter("member_tel");
-		String member_email = req.getParameter("member_email");
-		String member_image = req.getParameter("member_image");
-		String dbImgPath = (String) req.getParameter("dbImgPath");
-		String pDbImgPath = (String) req.getParameter("pDbImgPath");
-		
-		System.out.println(member_id);
-		System.out.println(member_tel);
-		System.out.println(member_email);
-		System.out.println(member_image);
-		System.out.println(pDbImgPath);
-		System.out.println(dbImgPath);
-		
-		model.addAttribute("member_id", member_id);
-		model.addAttribute("member_pw", member_pw);
-		model.addAttribute("member_nick", member_nick);
-		model.addAttribute("member_tel", member_tel);
-		model.addAttribute("member_email", member_email);
-		model.addAttribute("member_image", member_image);
-		
-		MultipartRequest multi = (MultipartRequest)req;
-		MultipartFile file = multi.getFile("image");
-		
-			
-		if(file != null) {
-			//여기 파일 네임 확인해야 할듯??
-			String fileName = file.getOriginalFilename();
-			System.out.println(fileName);
-			
-			// 디렉토리 존재하지 않으면 생성
-			makeDir(req);	
-				
-			if(file.getSize() > 0){			
-				String realImgPath = req.getSession().getServletContext()
-						.getRealPath("/resources/images/member/");
-				
-				System.out.println( fileName + " : " + realImgPath);
-				System.out.println( "fileSize : " + file.getSize());					
-												
-			 	try {
-			 		// 이미지파일 저장
-					file.transferTo(new File(realImgPath, fileName));										
-				} catch (Exception e) {
-					e.printStackTrace();
-				} 
-									
-			}else{
-				// 이미지파일 실패시
-				fileName = "FileFail.jpg";
-				String realImgPath = req.getSession().getServletContext()
-						.getRealPath("/resources/images/member/" + fileName);
-				System.out.println(fileName + " : " + realImgPath);
-			}			
-		}
-		command = new AMemberInsertCommand();
-		command.execute(model);
-		
-		return "anMemberInsert";
 	}
 	
 	//회원 정보 업데이트(이미지 변경)
@@ -297,6 +245,8 @@ public class AController {
 	public String anBusinessSelect(HttpServletRequest req, Model model){
 		System.out.println("anBusinessSelect()");
 		
+		String business_member_code = (String) req.getParameter("business_member_code");
+		
 		command = new ABusinessSelectCommand();
 		command.execute(model);
 		
@@ -308,6 +258,10 @@ public class AController {
 	public String anProductSelect(HttpServletRequest req, Model model){
 		System.out.println("anProductSelect()");
 		
+		// 실제 테스트 해보지 않아서 맞는지 모르니 확인해보세요
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
+		int product_business_code = Integer.parseInt(req.getParameter("product_business_code"));
+		
 		command = new AProductSelectCommand();
 		command.execute(model);
 		
@@ -318,6 +272,11 @@ public class AController {
 	@RequestMapping(value="/anBookingSelect", method = {RequestMethod.GET, RequestMethod.POST}  )
 	public String anBookingSelect(HttpServletRequest req, Model model){
 		System.out.println("anBookingSelect()");
+		
+		//아마 member_code와 business_code, product_code의 3조건으로 검색해야 할 것 같음.
+		int member_code = Integer.parseInt(req.getParameter("member_code"));
+		int business_code = Integer.parseInt(req.getParameter("business_code"));
+		int product_code = Integer.parseInt(req.getParameter("product_code"));
 		
 		command = new ABookingSelectCommand();
 		command.execute(model);

@@ -11,6 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.ui.Model;
+
 import reservJAVA_app.dto.BusinessDTO;
 
 public class BusinessDAO {
@@ -53,7 +55,6 @@ public class BusinessDAO {
 				String business_image = resultSet.getString("business_image");
 				String business_info = resultSet.getString("business_info");
 				int business_star_avg = resultSet.getInt("business_star_avg");
-				
 				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_code1, business_category_code2, business_addr, business_tel, business_image, business_info, business_star_avg);
 				busiDTOs.add(busiDTO);			
 			}	
@@ -62,6 +63,67 @@ public class BusinessDAO {
 			
 		} catch (Exception e) {
 			
+			System.out.println(e.getMessage());
+		} finally {
+			try {			
+				
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (prepareStatement != null) {
+					prepareStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}	
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+		}
+		return busiDTOs;
+	}
+	
+	//매장 검색
+	public ArrayList<BusinessDTO> searchBusiness(Model model) {
+		
+		ArrayList<BusinessDTO> busiDTOs = new ArrayList<BusinessDTO>();
+		Connection connection = null;
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;		
+		System.out.println("searchText" + model.getAttribute("searchText").toString());
+		String searchData = "%"+model.getAttribute("searchText").toString()+"%";
+		
+		try {
+			connection = dataSource.getConnection();
+			String query = "select * "					
+							+ " from tbl_business" 
+							+ " where business_name like ?";
+			prepareStatement = connection.prepareStatement(query);
+			prepareStatement.setString(1, searchData);
+			resultSet = prepareStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				int business_code = resultSet.getInt("business_code");
+				String business_name = resultSet.getString("business_name");
+				int business_member_code = resultSet.getInt("business_member_code");
+				int business_category_code1 = resultSet.getInt("business_category_code1");
+				int business_category_code2 = resultSet.getInt("business_category_code2");
+				String business_addr = resultSet.getString("business_addr");
+				String business_tel = resultSet.getString("business_tel");
+				String business_image = resultSet.getString("business_image");
+				String business_info = resultSet.getString("business_info");
+				int business_star_avg = resultSet.getInt("business_star_avg");
+				//System.out.println("business_category_code1 : " + business_category_code1);
+				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_code1, business_category_code2, business_addr, business_tel, business_image, business_info, business_star_avg);
+				busiDTOs.add(busiDTO);			
+			}	
+			
+			System.out.println("adtos크기" + busiDTOs.size());
+			
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			try {			
