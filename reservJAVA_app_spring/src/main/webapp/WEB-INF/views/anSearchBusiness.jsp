@@ -12,13 +12,7 @@
 
 <%
 Gson gson = new Gson();
-String json = gson.toJson((BusinessDTO)request.getAttribute("anSearchBusiness") );
-
-/* Object obj = (Object)request.getAttribute("anSearchBusiness");
-String json = "";
-if( obj!=null) {
- json = gson.toJson((BusinessDTO)request.getAttribute("anSearchBusiness"));
-} */
+String json = gson.toJson((ArrayList<BusinessDTO>)request.getAttribute("anSearchBusiness") );
 
 out.println(json);	
 

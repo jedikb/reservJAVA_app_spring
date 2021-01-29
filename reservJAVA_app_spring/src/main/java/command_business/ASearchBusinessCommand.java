@@ -16,11 +16,6 @@ public class ASearchBusinessCommand implements ACommand{
 		ArrayList<BusinessDTO> busiDTOs = busiDAO.searchBusiness(model);
 		
 		model.addAttribute("anSearchBusiness", busiDTOs);
-		//model.addAttribute("anSearchBusiness", busiDTOs.size()==0? null : busiDTOs);
-		//System.out.println("busiDTOs.size() : " + busiDTOs.size());
-		ArrayList<BusinessDTO> business_category_code1= (ArrayList<BusinessDTO>) model.getAttribute("business_category_code1");
-		System.out.println("ASearchBusinessCommand : business_category_code1" + business_category_code1);
 		
 	}
-
 }
