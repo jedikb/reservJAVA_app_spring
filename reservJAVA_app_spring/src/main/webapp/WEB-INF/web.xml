@@ -29,6 +29,14 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- html파일을 외부로 노출시키기 -->
+<!-- 	<servlet-mapping>
+	    <servlet-name>default</url-pattern>
+	    <url-pattern>*.html</url-pattern>
+	</servlet-mapping>
+ -->
+
 
 	<filter>
 		<filter-name>encodingFilter</filter-name>
