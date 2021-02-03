@@ -100,9 +100,10 @@ public class BusinessDAO {
 			connection = dataSource.getConnection();
 			String query = "select * "					
 							+ " from tbl_business" 
-							+ " where business_name like ?";
+							+ " where upper(business_name) like upper(?) or upper(business_hashtag) like upper(?)";
 			prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setString(1, searchData);
+			prepareStatement.setString(2, searchData);
 			resultSet = prepareStatement.executeQuery();
 			
 			while (resultSet.next()) {
