@@ -1,4 +1,4 @@
-<%@page import="com.hanul.reservJAVA_app.dto.MemberDTO"%>
+<%@page import="reservJAVA_app.dto.MemberDTO"%>
 
 <%@page import="com.google.gson.Gson"%>
 <%@page import="com.google.gson.JsonObject"%>
