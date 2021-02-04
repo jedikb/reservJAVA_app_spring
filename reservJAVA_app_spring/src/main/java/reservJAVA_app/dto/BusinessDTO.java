@@ -3,26 +3,27 @@ package reservJAVA_app.dto;
 public class BusinessDTO {
 	private int business_code;
 	private String business_name;
-	private int business_member_code, business_category_code1, business_category_code2;
-	private  String business_addr, business_tel, business_image, business_info;
+	private int business_member_code, business_category_parent_code, business_category_code;
+	private  String business_addr, business_tel, business_image, business_info, business_hashtag;
 	private int business_star_avg;
 	
 	public BusinessDTO() {}
 	
-	public BusinessDTO(int business_code, String business_name, int business_member_code, int business_category_code1,
-			int business_category_code2, String business_addr, String business_tel, String business_image,
-			String business_info, int business_star_avg) {
+	public BusinessDTO(int business_code, String business_name, int business_member_code, int business_category_parent_code,
+			int business_category_code, String business_addr, String business_tel, String business_image,
+			String business_info, int business_star_avg, String business_hashtag) {
 		super();
 		this.business_code = business_code;
 		this.business_name = business_name;
 		this.business_member_code = business_member_code;
-		this.business_category_code1 = business_category_code1;
-		this.business_category_code2 = business_category_code2;
+		this.business_category_parent_code = business_category_parent_code;
+		this.business_category_code = business_category_code;
 		this.business_addr = business_addr;
 		this.business_tel = business_tel;
 		this.business_image = business_image;
 		this.business_info = business_info;
 		this.business_star_avg = business_star_avg;
+		this.business_hashtag = business_hashtag;
 	}
 
 	public int getBusiness_code() {
@@ -49,20 +50,20 @@ public class BusinessDTO {
 		this.business_member_code = business_member_code;
 	}
 
-	public int getBusiness_category_code1() {
-		return business_category_code1;
+	public int business_category_parent_code() {
+		return business_category_parent_code;
 	}
 
-	public void setBusiness_category_code1(int business_category_code1) {
-		this.business_category_code1 = business_category_code1;
+	public void business_category_parent_code(int business_category_parent_code) {
+		this.business_category_parent_code = business_category_parent_code;
 	}
 
-	public int getBusiness_category_code2() {
-		return business_category_code2;
+	public int business_category_code() {
+		return business_category_code;
 	}
 
-	public void setBusiness_category_code2(int business_category_code2) {
-		this.business_category_code2 = business_category_code2;
+	public void business_category_code(int business_category_code) {
+		this.business_category_code = business_category_code;
 	}
 
 	public String getBusiness_addr() {

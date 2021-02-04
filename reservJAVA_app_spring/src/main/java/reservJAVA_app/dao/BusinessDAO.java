@@ -48,14 +48,15 @@ public class BusinessDAO {
 				int business_code = resultSet.getInt("business_code");
 				String business_name = resultSet.getString("business_name");
 				int business_member_code = resultSet.getInt("business_member_code");
-				int business_category_code1 = resultSet.getInt("business_category_code1");
-				int business_category_code2 = resultSet.getInt("business_category_code2");
+				int business_category_parent_code = resultSet.getInt("business_category_parent_code");
+				int business_category_code = resultSet.getInt("business_category_code");
 				String business_addr = resultSet.getString("business_addr");
 				String business_tel = resultSet.getString("business_tel");
 				String business_image = resultSet.getString("business_image");
 				String business_info = resultSet.getString("business_info");
 				int business_star_avg = resultSet.getInt("business_star_avg");
-				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_code1, business_category_code2, business_addr, business_tel, business_image, business_info, business_star_avg);
+				String business_hashtag = resultSet.getString("business_hashtag");
+				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag);
 				busiDTOs.add(busiDTO);			
 			}	
 			
@@ -110,15 +111,16 @@ public class BusinessDAO {
 				int business_code = resultSet.getInt("business_code");
 				String business_name = resultSet.getString("business_name");
 				int business_member_code = resultSet.getInt("business_member_code");
-				int business_category_code1 = resultSet.getInt("business_category_code1");
-				int business_category_code2 = resultSet.getInt("business_category_code2");
+				int business_category_parent_code = resultSet.getInt("business_category_parent_code");
+				int business_category_code = resultSet.getInt("business_category_code");
 				String business_addr = resultSet.getString("business_addr");
 				String business_tel = resultSet.getString("business_tel");
 				String business_image = resultSet.getString("business_image");
 				String business_info = resultSet.getString("business_info");
 				int business_star_avg = resultSet.getInt("business_star_avg");
+				String business_hashtag = resultSet.getString("business_hashtag");
 				//System.out.println("business_category_code1 : " + business_category_code1);
-				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_code1, business_category_code2, business_addr, business_tel, business_image, business_info, business_star_avg);
+				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag);
 				busiDTOs.add(busiDTO);			
 			}	
 			
