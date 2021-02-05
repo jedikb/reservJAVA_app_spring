@@ -1,7 +1,0 @@
-target/
-
-.settings/
-src/test/
-.classpath
-.project
-.springBeans
