@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 target/
 
 .settings/
@@ -8,3 +9,6 @@ src/test/
 .metadata/
 Servers/
 archive.zip
+=======
+/.metadata/
+>>>>>>> e161220 (리뷰 값 db로 저장하는 기능 구현하는거 집에서 마저함...)

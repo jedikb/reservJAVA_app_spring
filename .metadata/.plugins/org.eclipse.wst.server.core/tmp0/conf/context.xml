@@ -25,8 +25,7 @@
     <!--
     <Manager pathname="" />
     -->
-    
-        <!-- 멀티전송 추가 -->
+            <!-- 멀티전송 추가 -->
     <Resource auth="Container"
         driverClassName="oracle.jdbc.driver.OracleDriver"
         maxActive="50"
@@ -34,7 +33,7 @@
         name="bteam"
         password="bteam"
         type="javax.sql.DataSource"
-        url="jdbc:oracle:thin:@121.179.5.99:1521:xe"
+        url="jdbc:oracle:thin:@112.164.58.217:1521:xe"
         username="bteam"
     />  
 </Context>
