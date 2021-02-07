@@ -56,7 +56,9 @@ public class BusinessDAO {
 				String business_info = resultSet.getString("business_info");
 				int business_star_avg = resultSet.getInt("business_star_avg");
 				String business_hashtag = resultSet.getString("business_hashtag");
-				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag);
+				Double business_lat = resultSet.getDouble("business_lat");
+				Double business_lng = resultSet.getDouble("business_lng");
+				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag, business_lat, business_lng);
 				busiDTOs.add(busiDTO);			
 			}	
 			
@@ -101,7 +103,8 @@ public class BusinessDAO {
 			connection = dataSource.getConnection();
 			String query = "select * "					
 							+ " from tbl_business" 
-							+ " where upper(business_name) like upper(?) or upper(business_hashtag) like upper(?)";
+							+ " where upper(business_name) like upper(?) or upper(business_hashtag) like upper(?)"
+							+ " order by business_addr";
 			prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setString(1, searchData);
 			prepareStatement.setString(2, searchData);
@@ -119,8 +122,10 @@ public class BusinessDAO {
 				String business_info = resultSet.getString("business_info");
 				int business_star_avg = resultSet.getInt("business_star_avg");
 				String business_hashtag = resultSet.getString("business_hashtag");
+				Double business_lat = resultSet.getDouble("business_lat");
+				Double business_lng = resultSet.getDouble("business_lng");
 				//System.out.println("business_category_code1 : " + business_category_code1);
-				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag);
+				BusinessDTO busiDTO = new BusinessDTO(business_code, business_name, business_member_code, business_category_parent_code, business_category_code, business_addr, business_tel, business_image, business_info, business_star_avg, business_hashtag, business_lat, business_lng);
 				busiDTOs.add(busiDTO);			
 			}	
 			

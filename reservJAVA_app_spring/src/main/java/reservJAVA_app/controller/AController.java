@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,7 +32,7 @@ public class AController {
 	ACommand command;
 	
 	//매장 검색
-	@RequestMapping("/anSearchBusiness")
+	@RequestMapping(value = "/anSearchBusiness", method = {RequestMethod.GET, RequestMethod.POST})
 	public String SearchBusiness(HttpServletRequest req, Model model) {
 		System.out.println("anSearchBusiness()");
 		
