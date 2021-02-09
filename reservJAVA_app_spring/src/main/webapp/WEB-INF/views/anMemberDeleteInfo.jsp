@@ -4,5 +4,5 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
 String state = (String)request.getAttribute("anMemberDeleteInfo");
-out.println(state);	
+out.println(state);
 %>

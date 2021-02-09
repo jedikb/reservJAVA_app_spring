@@ -11,30 +11,41 @@ import command.ACommand;
 
 import command_member.AMemberCancelCommand;
 import command_member.AMemberDeleteInfoCommand;
+import reservJAVA_app.dao.MemberDAOlbs;
 
 @Controller
 public class AControllerlbs {
+    private static final String TAG = "AControllerlbs.";
 
 	ACommand command;
+	MemberDAOlbs dao;
 	
-	//회원 탈퇴	
+	//회원 탈퇴
 	@RequestMapping(value="/anMemberCancel", method = {RequestMethod.GET, RequestMethod.POST})
-	public void anMemberCancel(HttpServletRequest req, Model model){
-		System.out.println("anMemberCancel() " + (String)req.getParameter("member_code"));		
+	public String anMemberCancel(HttpServletRequest req, Model model){
+	    String TAG2 = TAG + "anMemberCancel(): ";
 		
-		model.addAttribute("member_code", req.getParameter("member_code"));		
-				
+		//model.addAttribute("member_code", Integer.parseInt( (String)req.getParameter("member_code") ));
+		model.addAttribute("member_code", (String)req.getParameter("member_code") );
+		//model.addAttribute("member_code", dao.anMemberCancel( req.getParameter("member_code") ));
+		System.out.println(TAG2 + "member_code= " + (String)req.getParameter("member_code"));
+		
 		command = new AMemberCancelCommand();
-		command.execute(model);	
-	}
+		command.execute(model);
 
-	//회원-정보삭제 처리	
+		return "anMemberCancel";
+	}//anMemberCancel()
+
+	//회원-정보삭제 처리
 	@RequestMapping(value="/anMemberDeleteInfo", method = {RequestMethod.GET, RequestMethod.POST})
-	public void anMemberDeleteInfo(HttpServletRequest req, Model model){
-		System.out.println("anMemberDeleteInfo()");		
+	public String anMemberDeleteInfo(HttpServletRequest req, Model model){
+	    String TAG2 = TAG + "anMemberDeleteInfo(): ";
+		System.out.println(TAG2);
 		
 		command = new AMemberDeleteInfoCommand();
-		command.execute(model);	
+		command.execute(model);
+
+		return "anMemberDeleteInfo";
 	}//anMemberDeleteInfo()
 	
-}
+}//class AControllerlbs
