@@ -25,8 +25,9 @@ public class AControllerlbs {
 	public String anMemberCancel(HttpServletRequest req, Model model){
 	    String TAG2 = TAG + "anMemberCancel(): ";
 		
+		model.addAttribute("member_code", req.getParameter("member_code") );		
+		//model.addAttribute("member_code", (String)req.getParameter("member_code") );
 		//model.addAttribute("member_code", Integer.parseInt( (String)req.getParameter("member_code") ));
-		model.addAttribute("member_code", (String)req.getParameter("member_code") );
 		//model.addAttribute("member_code", dao.anMemberCancel( req.getParameter("member_code") ));
 		System.out.println(TAG2 + "member_code= " + (String)req.getParameter("member_code"));
 		

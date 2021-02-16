@@ -11,14 +11,14 @@ public class AMemberCancelCommand implements ACommand {
 	@Override
 	public void execute(Model model) {
 	    String TAG2 = TAG + "execute(): ";
-		System.out.println(TAG2 + "member_id= " + model.asMap().get("member_id") );
-		int member_id = Integer.parseInt((String)model.asMap().get("member_id"));
-		//int member_id = (int) model.asMap().get("member_id");
+		System.out.println(TAG2 + "member_code= " + model.asMap().get("member_code") );
+		int member_code = Integer.parseInt((String)model.asMap().get("member_code"));
+		//int member_code = (int) model.asMap().get("member_code");
 		//String member_name = (String)model.asMap().get("member_name");
-		System.out.println(TAG2 + "member_id= " + member_id);
+		System.out.println(TAG2 + "member_code= " + member_code);
 		
 		MemberDAOlbs adao = new MemberDAOlbs();
-		int state = adao.anMemberCancel(member_id);
+		int state = adao.anMemberCancel(member_code);
 		System.out.println(TAG2 + "state= " + state);
 		
 		model.addAttribute("anMemberCancel", String.valueOf(state)); 

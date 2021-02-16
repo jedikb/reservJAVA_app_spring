@@ -56,8 +56,8 @@ public class MemberDAOlbs {
 			System.out.println(TAG2 + "member_code= " + member_code + " 번 회원님이 탈퇴 요청하였습니다.");
 			
 			query = "update tbl_member set "			//업데이트 회원테이블.
-					+ " member_kind			= 9 "		//회원 구분(1.관리자, 2.일반회원,3.사업자회원,9.회원탈퇴).
-					+ " member_date_delete	= sysdate "	//개인정보 삭제 예정일(코드수정필요).
+					+ "  member_kind		= 9 "		//회원 구분(1.관리자, 2.일반회원,3.사업자회원,9.회원탈퇴).
+					+ ", member_date_delete	= sysdate "	//개인정보 삭제 예정일(코드수정필요).
 					+ " where member_code	= ? ";		//검색조건: 회원코드.
 			prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setInt(1, member_code);
