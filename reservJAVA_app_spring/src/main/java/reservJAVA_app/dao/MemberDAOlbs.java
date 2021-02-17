@@ -11,25 +11,26 @@ import javax.sql.DataSource;
 
 public class MemberDAOlbs {
     private static final String TAG = "MemberDAOlbs.";
+
     private Connection connection = null;
 	private PreparedStatement prepareStatement = null;
 	private ResultSet resultSet = null;
-	DataSource dataSource;
+	private DataSource dataSource;
 
 	//생성자 메소드()
 	public MemberDAOlbs() { 
-		try {	Context context = new InitialContext();
+	    String TAG2 = TAG + "MemberDAOlbs() 생성자 메소드: ";
+	    try {	Context context = new InitialContext();
 				//DB접속정보(dataSource)를 가져온다(위치:tomcat/context.xml->name="bteam")
 				dataSource = (DataSource) context.lookup("java:/comp/env/bteam"); 
-		} catch (Exception e) { e.getMessage(); } 
+		} catch (Exception e) { e.printStackTrace(); System.out.println(TAG2 + "Exception!!!"); }
 	}//MemberDAOlbs() DB접속정보 가져옴.
 
 	//DB접속(dataSource로 DB connection을 생성한다)
 	public Connection getConn() {
 	    String TAG2 = TAG + "getConn(): ";
-		try {	connection = dataSource.getConnection();
-		} catch (Exception e) {	e.printStackTrace();
-				System.out.println(TAG2 + "Exception!!!"); }
+	    try {	connection = dataSource.getConnection();
+		} catch (Exception e) {	e.printStackTrace(); System.out.println(TAG2 + "Exception!!!"); }
 		return connection;
 	}//getConn() DB접속.
 	
@@ -39,8 +40,7 @@ public class MemberDAOlbs {
 		try {	if(resultSet != null)			resultSet.close();
 				if(prepareStatement != null)	prepareStatement.close();
 				if(connection != null)			connection.close();
-		} catch (Exception e) { e.printStackTrace();
-				System.out.println(TAG2 + "Exception!!!"); }
+		} catch (Exception e) { e.printStackTrace(); System.out.println(TAG2 + "Exception!!!"); }
 	}//dbClose() DB접속해제.
 	
 	//회원-탈퇴 처리
@@ -53,7 +53,7 @@ public class MemberDAOlbs {
 
 		try {
 			connection = getConn();
-			System.out.println(TAG2 + "member_code= " + member_code + " 번 회원님이 탈퇴 요청하였습니다.");
+			System.out.println(TAG2 + "member_code= " + member_code );
 			
 			query = "update tbl_member set "			//업데이트 회원테이블.
 					+ "  member_kind		= 9 "		//회원 구분(1.관리자, 2.일반회원,3.사업자회원,9.회원탈퇴).
@@ -61,6 +61,7 @@ public class MemberDAOlbs {
 					+ " where member_code	= ? ";		//검색조건: 회원코드.
 			prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setInt(1, member_code);
+
 			state = prepareStatement.executeUpdate();	//DB업데이트 실행.
 
 			if (state > 0)	System.out.println(TAG2 + "탈퇴회원(9)으로 변경 성공!");				
@@ -78,23 +79,25 @@ public class MemberDAOlbs {
 	public int anMemberDeleteInfo() {
 	    String TAG2 = TAG + "anMemberDeleteInfo(): ";
 		
-		connection = getConn();
 		String query = "";
 		int state = -1;
 		String member_image;
 		
 		//1. 서버에 있는 member_image 파일 삭제 처리(예정)
 		//ArrayList<String> list = new ArrayList<>();		
-		try { System.out.println(TAG2 + "member_date_delete(개인정보 삭제 예정일)이 경과한 회원님들의 사진파일을 삭제합니다.");
+		try {
+			connection = getConn();
+			System.out.println(TAG2 + "member_date_delete(개인정보 삭제 예정일)이 경과한 회원님들의 사진파일을 삭제합니다.");
 
 			query = "select "
 					+ " member_image "
 					+ " from tbl_member "
 					+ " where member_kind = 9 "				//검색조건1: 탈퇴회원 이고,
 					+ " and member_date_delete > sysdate ";	//검색조건2: 개인정보 삭제 예정일이 지난 경우.
-	
 			prepareStatement = connection.prepareStatement(query);
+
 			resultSet = prepareStatement.executeQuery();
+
 			while(resultSet.next()) {
 				member_image = "/resources/images/member/" + resultSet.getString("member_image");
 				//list.add(member_image);

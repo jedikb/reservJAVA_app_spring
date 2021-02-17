@@ -11,17 +11,17 @@ public class AMemberCancelCommand implements ACommand {
 	@Override
 	public void execute(Model model) {
 	    String TAG2 = TAG + "execute(): ";
-		System.out.println(TAG2 + "member_code= " + model.asMap().get("member_code") );
+
 		int member_code = Integer.parseInt((String)model.asMap().get("member_code"));
 		//int member_code = (int) model.asMap().get("member_code");
 		//String member_name = (String)model.asMap().get("member_name");
-		System.out.println(TAG2 + "member_code= " + member_code);
+		System.out.println(TAG2 + "member_code= " + member_code + " 번 회원님이 탈퇴 요청하였습니다.");
 		
 		MemberDAOlbs adao = new MemberDAOlbs();
 		int state = adao.anMemberCancel(member_code);
-		System.out.println(TAG2 + "state= " + state);
-		
-		model.addAttribute("anMemberCancel", String.valueOf(state)); 
-	}
 
-}
+		System.out.println(TAG2 + "state= " + state);
+		model.addAttribute("anMemberCancel", String.valueOf(state)); 
+	}//execute()
+
+}//class AMemberCancelCommand
