@@ -9,7 +9,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class MemberDAOlbs {
+public class MemberDAO_lbs {
     private static final String TAG = "MemberDAOlbs.";
 
     private Connection connection = null;
@@ -18,7 +18,7 @@ public class MemberDAOlbs {
 	private DataSource dataSource;
 
 	//생성자 메소드()
-	public MemberDAOlbs() { 
+	public MemberDAO_lbs() { 
 	    String TAG2 = TAG + "MemberDAOlbs() 생성자 메소드: ";
 	    try {	Context context = new InitialContext();
 				//DB접속정보(dataSource)를 가져온다(위치:tomcat/context.xml->name="bteam")

@@ -3,7 +3,7 @@ package command_member;
 import org.springframework.ui.Model;
 
 import command.ACommand;
-import reservJAVA_app.dao.MemberDAOlbs;
+import reservJAVA_app.dao.MemberDAO_lbs;
 
 public class AMemberCancelCommand implements ACommand {
     private static final String TAG = "AMemberCancelCommand.";
@@ -17,7 +17,7 @@ public class AMemberCancelCommand implements ACommand {
 		//String member_name = (String)model.asMap().get("member_name");
 		System.out.println(TAG2 + "member_code= " + member_code + " 번 회원님이 탈퇴 요청하였습니다.");
 		
-		MemberDAOlbs adao = new MemberDAOlbs();
+		MemberDAO_lbs adao = new MemberDAO_lbs();
 		int state = adao.anMemberCancel(member_code);
 
 		System.out.println(TAG2 + "state= " + state);

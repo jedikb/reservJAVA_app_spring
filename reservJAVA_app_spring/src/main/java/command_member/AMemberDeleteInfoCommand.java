@@ -3,7 +3,7 @@ package command_member;
 import org.springframework.ui.Model;
 
 import command.ACommand;
-import reservJAVA_app.dao.MemberDAOlbs;
+import reservJAVA_app.dao.MemberDAO_lbs;
 
 public class AMemberDeleteInfoCommand implements ACommand {
     private static final String TAG = "AMemberDeleteInfoCommand.";
@@ -13,7 +13,7 @@ public class AMemberDeleteInfoCommand implements ACommand {
 	    String TAG2 = TAG + "execute(): ";
 		System.out.println(TAG2);
 		
-		MemberDAOlbs adao = new MemberDAOlbs();
+		MemberDAO_lbs adao = new MemberDAO_lbs();
 		int state = adao.anMemberDeleteInfo();
 		System.out.println(TAG2 + "state= " + state);
 		

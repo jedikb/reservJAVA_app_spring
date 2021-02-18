@@ -3,9 +3,24 @@ package reservJAVA_app.dto;
 import java.sql.Date;
 
 public class BookingDTO {
+/*
+booking_code             not null number         
+booking_kind                      number         
+booking_member_code               number         
+booking_business_code             number         
+booking_product_code              number         
+booking_price                     number         
+booking_price_deposit             number         
+booking_num                       number         
+booking_date                      date           
+booking_date_reservation          date           
+booking_etc                       varchar2(1000) 
+booking_appraisal_star            number         
+booking_appraisal                 varchar2(2000) 
+*/
 	private int booking_code, booking_kind, booking_member_code, booking_business_code,
 		booking_product_code, booking_price, booking_price_deposit, booking_num;
-	private Date booking_date, booking_date_reservation;
+	private String booking_date, booking_date_reservation;
 	private String booking_etc;
 	private int booking_appraisal_star;
 	private String booking_appraisal;
@@ -16,19 +31,19 @@ public class BookingDTO {
 			int booking_product_code, int booking_price, int booking_price_deposit, int booking_num, Date booking_date,
 			Date booking_date_reservation, String booking_etc, int booking_appraisal_star, String booking_appraisal) {
 		super();
-		this.booking_code = booking_code;
-		this.booking_kind = booking_kind;
-		this.booking_member_code = booking_member_code;
-		this.booking_business_code = booking_business_code;
-		this.booking_product_code = booking_product_code;
-		this.booking_price = booking_price;
-		this.booking_price_deposit = booking_price_deposit;
-		this.booking_num = booking_num;
-		this.booking_date = booking_date;
-		this.booking_date_reservation = booking_date_reservation;
-		this.booking_etc = booking_etc;
-		this.booking_appraisal_star = booking_appraisal_star;
-		this.booking_appraisal = booking_appraisal;
+		this.booking_code 				= booking_code;
+		this.booking_kind 				= booking_kind;
+		this.booking_member_code 		= booking_member_code;
+		this.booking_business_code 		= booking_business_code;
+		this.booking_product_code 		= booking_product_code;
+		this.booking_price 				= booking_price;
+		this.booking_price_deposit 		= booking_price_deposit;
+		this.booking_num 				= booking_num;
+		this.booking_date 				= booking_date.toString();
+		this.booking_date_reservation 	= booking_date_reservation.toString();
+		this.booking_etc 				= booking_etc;
+		this.booking_appraisal_star 	= booking_appraisal_star;
+		this.booking_appraisal 			= booking_appraisal;
 	}
 
 
@@ -112,22 +127,22 @@ public class BookingDTO {
 	}
 
 
-	public Date getBooking_date() {
+	public String getBooking_date() {
 		return booking_date;
 	}
 
 
-	public void setBooking_date(Date booking_date) {
+	public void setBooking_date(String booking_date) {
 		this.booking_date = booking_date;
 	}
 
 
-	public Date getBooking_date_reservation() {
+	public String getBooking_date_reservation() {
 		return booking_date_reservation;
 	}
 
 
-	public void setBooking_date_reservation(Date booking_date_reservation) {
+	public void setBooking_date_reservation(String booking_date_reservation) {
 		this.booking_date_reservation = booking_date_reservation;
 	}
 
