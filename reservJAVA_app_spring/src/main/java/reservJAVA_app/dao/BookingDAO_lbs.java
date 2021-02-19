@@ -55,7 +55,11 @@ public class BookingDAO_lbs {
 			connection = getConn();
 			System.out.println(TAG2 + "booking_code= " + booking_code );
 			
-			query = "select * from tbl_ing_booking "	//조회: 예약테이블.
+			query = "select b.* "
+					+ ",(select member_name from tbl_member m where m.member_code = b.booking_member_code) booking_member_name "
+					+ ",(select business_name from tbl_business m where m.business_code = b.booking_business_code) booking_business_name "
+					+ ",(select product_name from tbl_product m where m.product_code = b.booking_product_code) booking_product_name "
+					+ " from tbl_ing_booking b "	//조회: 예약테이블.
 					+ " where booking_code	= ? ";		//검색조건: 예약코드.
 			prepareStatement = connection.prepareStatement(query);
 			prepareStatement.setInt(1, booking_code);
@@ -67,8 +71,11 @@ public class BookingDAO_lbs {
 				adto.setBooking_code				(resultSet.getInt	("booking_code"				));
 				adto.setBooking_kind				(resultSet.getInt	("booking_kind"				));
 				adto.setBooking_member_code			(resultSet.getInt	("booking_member_code"		));
+				adto.setBooking_member_name			(resultSet.getString("booking_member_name"		));
 				adto.setBooking_business_code		(resultSet.getInt	("booking_business_code"	));
+				adto.setBooking_business_name		(resultSet.getString("booking_business_name"	));
 				adto.setBooking_product_code		(resultSet.getInt	("booking_product_code"		));
+				adto.setBooking_product_name		(resultSet.getString("booking_product_name"		));
 				adto.setBooking_price				(resultSet.getInt	("booking_price"			));
 				adto.setBooking_price_deposit		(resultSet.getInt	("booking_price_deposit"	));
 				adto.setBooking_num					(resultSet.getInt	("booking_num"				));

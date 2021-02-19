@@ -25,6 +25,9 @@ booking_appraisal                 varchar2(2000)
 	private int booking_appraisal_star;
 	private String booking_appraisal;
 	
+	//조회(select) 쿼리를 위한 맴버변수
+	private String booking_member_name, booking_business_name, booking_product_name;
+
 	public BookingDTO() {}
 	
 	public BookingDTO(int booking_code, int booking_kind, int booking_member_code, int booking_business_code,
@@ -46,6 +49,30 @@ booking_appraisal                 varchar2(2000)
 		this.booking_appraisal 			= booking_appraisal;
 	}
 
+
+	public String getBooking_member_name() {
+		return booking_member_name;
+	}
+
+	public void setBooking_member_name(String booking_member_name) {
+		this.booking_member_name = booking_member_name;
+	}
+
+	public String getBooking_business_name() {
+		return booking_business_name;
+	}
+
+	public void setBooking_business_name(String booking_business_name) {
+		this.booking_business_name = booking_business_name;
+	}
+
+	public String getBooking_product_name() {
+		return booking_product_name;
+	}
+
+	public void setBooking_product_name(String booking_product_name) {
+		this.booking_product_name = booking_product_name;
+	}
 
 	public int getBooking_code() {
 		return booking_code;
