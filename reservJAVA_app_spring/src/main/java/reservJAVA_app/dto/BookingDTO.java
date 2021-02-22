@@ -13,15 +13,15 @@ booking_price                     number
 booking_price_deposit             number         
 booking_num                       number         
 booking_date                      date           
-booking_date_reservation          date           
+booking_date_reservation          varchar2(100)           
 booking_etc                       varchar2(1000) 
 booking_appraisal_star            number         
 booking_appraisal                 varchar2(2000) 
 */
 	private int booking_code, booking_kind, booking_member_code, booking_business_code,
 		booking_product_code, booking_price, booking_price_deposit, booking_num;
-	private String booking_date, booking_date_reservation;
-	private String booking_etc;
+	private String booking_date;
+	private String booking_date_reservation, booking_etc;
 	private int booking_appraisal_star;
 	private String booking_appraisal;
 	
@@ -30,25 +30,53 @@ booking_appraisal                 varchar2(2000)
 
 	public BookingDTO() {}
 	
-	public BookingDTO(int booking_code, int booking_kind, int booking_member_code, int booking_business_code,
-			int booking_product_code, int booking_price, int booking_price_deposit, int booking_num, Date booking_date,
-			Date booking_date_reservation, String booking_etc, int booking_appraisal_star, String booking_appraisal) {
+	public BookingDTO(	int		booking_code, 
+						int		booking_kind, 
+						int		booking_member_code, 
+						int		booking_business_code,
+						int		booking_product_code, 
+						int		booking_price, 
+						int		booking_price_deposit, 
+						int		booking_num, 
+						Date	booking_date,
+						String	booking_date_reservation, 
+						String	booking_etc, 
+						int		booking_appraisal_star, 
+						String	booking_appraisal) {
 		super();
-		this.booking_code 				= booking_code;
-		this.booking_kind 				= booking_kind;
-		this.booking_member_code 		= booking_member_code;
-		this.booking_business_code 		= booking_business_code;
-		this.booking_product_code 		= booking_product_code;
-		this.booking_price 				= booking_price;
-		this.booking_price_deposit 		= booking_price_deposit;
-		this.booking_num 				= booking_num;
-		this.booking_date 				= booking_date.toString();
-		this.booking_date_reservation 	= booking_date_reservation.toString();
-		this.booking_etc 				= booking_etc;
-		this.booking_appraisal_star 	= booking_appraisal_star;
-		this.booking_appraisal 			= booking_appraisal;
+		this.booking_code				= booking_code;
+		this.booking_kind				= booking_kind;
+		this.booking_member_code		= booking_member_code;
+		this.booking_business_code		= booking_business_code;
+		this.booking_product_code		= booking_product_code;
+		this.booking_price				= booking_price;
+		this.booking_price_deposit		= booking_price_deposit;
+		this.booking_num				= booking_num;
+		this.booking_date				= booking_date.toString();
+		this.booking_date_reservation	= booking_date_reservation;
+		this.booking_etc				= booking_etc;
+		this.booking_appraisal_star		= booking_appraisal_star;
+		this.booking_appraisal			= booking_appraisal;
 	}
-
+	
+	
+	//insert용 생성자
+	public BookingDTO(	int		booking_member_code, 
+						int		booking_business_code, 
+						int		booking_product_code, 
+						int		booking_price,
+						int		booking_price_deposit, 
+						int		booking_num, 
+						String	booking_date_reservation) {
+		super();
+		this.booking_member_code		= booking_member_code;
+		this.booking_business_code		= booking_business_code;
+		this.booking_product_code		= booking_product_code;
+		this.booking_price				= booking_price;
+		this.booking_price_deposit		= booking_price_deposit;
+		this.booking_num				= booking_num;
+		this.booking_date_reservation	= booking_date_reservation;
+	}
 
 	public String getBooking_member_name() {
 		return booking_member_name;

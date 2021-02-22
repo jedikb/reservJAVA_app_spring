@@ -8,7 +8,7 @@ public class MemberDTO {
 	private int member_kind;
 	private String member_name, member_nick, member_tel, member_email, member_addr, member_image;
 	private String member_date;
-	// 사진 추가 해야 함
+	
 	public MemberDTO() {}
 	
 	//전체 정보
