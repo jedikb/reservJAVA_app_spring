@@ -1,16 +1,19 @@
 package reservJAVA_app.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.ui.Model;
+
 import reservJAVA_app.dto.MemberDTO;
+import reservJAVA_app.dto.ReviewDTO;
 
 public class MemberDAO {
 
@@ -25,6 +28,8 @@ public class MemberDAO {
 		} 
 	}
 
+	//
+	
 	//로그인
 	public MemberDTO anMemberLogin(String member_id_in, String member_pw_in) {
 		MemberDTO adto = null;
@@ -79,6 +84,69 @@ public class MemberDAO {
 			}
 		}
 		return adto;
+	}
+	
+	// 작성 리뷰 조회
+	public ArrayList<ReviewDTO> anMyReview(Model model) {
+		
+		ArrayList<ReviewDTO> reviewDTOs = new ArrayList<ReviewDTO>();
+		Connection connection = null;
+		PreparedStatement ps = null;
+		ResultSet resultSet = null;
+		System.out.println(model.getAttribute("member_code"));
+		String member_code = (String) model.getAttribute("member_code");
+		System.out.println("member_code : " +member_code);
+		try {
+			connection = dataSource.getConnection();
+			
+			String query = "select b.*, bs.business_name, bs.business_category_code, bs.business_addr, to_char(b.booking_date_reservation, 'yyyy-MM-dd') "
+					+ " from tbl_ing_booking b, tbl_business bs"
+					+ " where b.booking_business_code = bs.business_code"
+					+ " and b.booking_member_code = ?";
+			ps = connection.prepareStatement(query);
+			ps.setString(1, member_code);
+			resultSet = ps.executeQuery();
+			
+			while(resultSet.next()) {
+				int booking_code = resultSet.getInt("booking_code");
+				int booking_kind = resultSet.getInt("booking_kind");
+				int booking_member_code = resultSet.getInt("booking_member_code");
+				int booking_business_code = resultSet.getInt("booking_business_code");
+				int booking_product_code = resultSet.getInt("booking_product_code");
+				String booking_date_reservation = resultSet.getString("booking_date_reservation");
+				int booking_appraisal_star = resultSet.getInt("booking_appraisal_star");
+				String booking_appraisal = resultSet.getString("booking_appraisal");
+				String business_name = resultSet.getString("business_name");
+				int business_category_code = resultSet.getInt("business_category_code");
+				String business_addr = resultSet.getString("business_addr");
+				
+				ReviewDTO reviewDTO = new ReviewDTO(booking_code, booking_kind, booking_member_code, booking_business_code,
+						booking_product_code, booking_date_reservation, booking_appraisal_star, booking_appraisal, business_name, business_category_code, business_addr);
+				reviewDTOs.add(reviewDTO);			
+			}
+			System.out.println("리스트 수 : " + reviewDTOs.size());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {			
+				
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}	
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+		}
+		return reviewDTOs;
 	}
 	
 	//회원 가입
@@ -334,6 +402,7 @@ public class MemberDAO {
 		}
 		return state;
 	}
+
 
 	 
 	

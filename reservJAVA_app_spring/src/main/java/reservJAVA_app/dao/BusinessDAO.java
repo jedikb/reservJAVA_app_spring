@@ -65,7 +65,6 @@ public class BusinessDAO {
 			System.out.println("adtos크기" + busiDTOs.size());
 			
 		} catch (Exception e) {
-			
 			System.out.println(e.getMessage());
 		} finally {
 			try {			

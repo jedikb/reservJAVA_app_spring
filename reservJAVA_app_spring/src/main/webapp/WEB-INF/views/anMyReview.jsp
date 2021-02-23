@@ -1,4 +1,4 @@
-<%@page import="reservJAVA_app.dto.ProductDTO"%>
+<%@page import="reservJAVA_app.dto.ReviewDTO"%>
 
 <%@page import="com.google.gson.Gson"%>
 <%@page import="com.google.gson.JsonObject"%>
@@ -12,6 +12,7 @@
 
 <%
 Gson gson = new Gson();
-String json = gson.toJson((ArrayList<ProductDTO>)request.getAttribute("anProductSelect"));
+String json = gson.toJson((ArrayList<ReviewDTO>)request.getAttribute("anMyReview"));
 
-out.println(json);	%>
+out.println(json);	
+%>

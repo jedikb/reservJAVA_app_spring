@@ -17,7 +17,7 @@ import reservJAVA_app.dao.MemberDAO_lbs;
 
 @Controller
 public class AController_lbs {
-    private static final String TAG = "AControllerlbs.";
+    private static final String TAG = "AController_lbs.";
 
 	ACommand command;
 	MemberDAO_lbs dao;

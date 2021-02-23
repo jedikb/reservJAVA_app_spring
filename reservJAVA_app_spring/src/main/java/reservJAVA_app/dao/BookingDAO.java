@@ -15,6 +15,7 @@ import reservJAVA_app.dto.BookingDTO;
 
 public class BookingDAO {
 
+	//Data 議고쉶 �삤瑜섎뒗 memberDAO 李몄“
 	DataSource dataSource;
 	
 	public BookingDAO() { 
@@ -26,7 +27,7 @@ public class BookingDAO {
 		} 
 	}
 	
-	//예약 리스트 조회
+	//�삁�빟 由ъ뒪�듃 議고쉶
 	public ArrayList<BookingDTO> bookingSelect() {
 		
 		ArrayList<BookingDTO> bDTOs = new ArrayList<BookingDTO>();
@@ -52,7 +53,7 @@ public class BookingDAO {
 				int booking_price_deposit = resultSet.getInt("booking_price_deposit");
 				int booking_num = resultSet.getInt("booking_num");
 				Date booking_date = resultSet.getDate("booking_date");
-				Date booking_date_reservation = resultSet.getDate("booking_date_reservation");
+				String booking_date_reservation = resultSet.getString("booking_date_reservation");
 				String booking_etc = resultSet.getString("booking_etc");
 				int booking_appraisal_star = resultSet.getInt("booking_appraisal_star");
 				String booking_appraisal = resultSet.getString("booking_appraisal");
@@ -64,7 +65,7 @@ public class BookingDAO {
 				bDTOs.add(bDTO);			
 			}	
 			
-			System.out.println("bDTOs크기" + bDTOs.size());
+			System.out.println("bDTOs�겕湲�" + bDTOs.size());
 			
 		} catch (Exception e) {
 			
@@ -89,6 +90,55 @@ public class BookingDAO {
 			}
 		}
 		return bDTOs;
+	}
+
+	public void bookingInsert(BookingDTO dto) {
+		Connection connection = null;
+		PreparedStatement prepareStatement = null;
+		ResultSet resultSet = null;
+		int succ = 0;
+		
+		try {
+			connection = dataSource.getConnection();
+			String query = "insert into tbl_ing_booking(booking_member_code,"
+					+ " booking_business_code, booking_product_code, booking_price,"
+					+ " booking_price_deposit, booking_num, booking_date, booking_date_reservation)"
+					+ " values(?, ?, ?, ?, ?, ?, sysdate, ?)";
+			prepareStatement = connection.prepareStatement(query);
+			prepareStatement.setInt(1, dto.getBooking_member_code());
+			prepareStatement.setInt(2, dto.getBooking_business_code());
+			prepareStatement.setInt(3, dto.getBooking_product_code());
+			prepareStatement.setInt(4, dto.getBooking_price());
+			prepareStatement.setInt(5, dto.getBooking_price_deposit());
+			prepareStatement.setInt(6, dto.getBooking_num());
+			prepareStatement.setString(7, dto.getBooking_date_reservation());
+			succ = prepareStatement.executeUpdate();
+				
+			
+			System.out.println("insert success? : " + succ);
+			
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+		} finally {
+			try {			
+				
+				if (resultSet != null) {
+					resultSet.close();
+				}
+				if (prepareStatement != null) {
+					prepareStatement.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}	
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+
+			}
+		}
 	}
 
 	

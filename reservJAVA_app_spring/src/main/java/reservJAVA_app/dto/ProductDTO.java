@@ -1,15 +1,17 @@
 package reservJAVA_app.dto;
 
-public class ProductDTO {
+import java.io.Serializable;
+
+public class ProductDTO implements Serializable {
 	private int product_code, product_business_code;
 	private String product_name;
 	private int product_price, product_price_deposit, product_stock;
-	private  String product_image, product_info;
+	private  String product_image, product_info, product_time;
 	
 	public ProductDTO() {}
 	
 	public ProductDTO(int product_code, int product_business_code, String product_name, int product_price,
-			int product_price_deposit, int product_stock, String product_image, String product_info) {
+			int product_price_deposit, int product_stock, String product_image, String product_info, String product_time) {
 		super();
 		this.product_code = product_code;
 		this.product_business_code = product_business_code;
@@ -19,6 +21,7 @@ public class ProductDTO {
 		this.product_stock = product_stock;
 		this.product_image = product_image;
 		this.product_info = product_info;
+		this.product_time = product_time;
 	}
 
 	public int getProduct_code() {
@@ -83,5 +86,13 @@ public class ProductDTO {
 
 	public void setProduct_info(String product_info) {
 		this.product_info = product_info;
+	}
+
+	public String getProduct_time() {
+		return product_time;
+	}
+
+	public void setProduct_time(String product_time) {
+		this.product_time = product_time;
 	}
 }

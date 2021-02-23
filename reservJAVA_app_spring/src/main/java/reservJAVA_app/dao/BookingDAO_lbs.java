@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 import reservJAVA_app.dto.BookingDTO;
 
 public class BookingDAO_lbs {
-    private static final String TAG = "BookingDAOlbs.";
+    private static final String TAG = "BookingDAO_lbs.";
 
     private Connection connection = null;
 	private PreparedStatement prepareStatement = null;
@@ -20,12 +20,12 @@ public class BookingDAO_lbs {
 
 	//생성자 메소드()
 	public BookingDAO_lbs() { 
-	    String TAG2 = TAG + "BookingDAOlbs() 생성자 메소드: ";
+	    String TAG2 = TAG + "BookingDAO_lbs() 생성자 메소드: ";
 	    try {	Context context = new InitialContext();
 				//DB접속정보(dataSource)를 가져온다(위치:tomcat/context.xml->name="bteam")
 				dataSource = (DataSource) context.lookup("java:/comp/env/bteam"); 
 		} catch (Exception e) { e.printStackTrace(); System.out.println(TAG2 + "Exception!!!"); }
-	}//BookingDAOlbs() DB접속정보 가져옴.
+	}//BookingDAO_lbs() DB접속정보 가져옴.
 
 	//DB접속(dataSource로 DB connection을 생성한다)
 	public Connection getConn() {
@@ -85,7 +85,7 @@ public class BookingDAO_lbs {
 				adto.setBooking_appraisal_star		(resultSet.getInt	("booking_appraisal_star"	));
 				adto.setBooking_appraisal			(resultSet.getString("booking_appraisal"		));
 			}	
-		} catch(Exception e){ e.printStackTrace(); System.out.println(TAG2 + "Exception!!!");
+		} catch(Exception e) { e.printStackTrace(); System.out.println(TAG2 + "Exception!!!");
 		} finally{ dbClose(); }
 
 		return adto;	//예약 1건 정보 반환.
